@@ -10,9 +10,12 @@ the strongest beat, (5) freshness.
 
 DECISION RECORD — candidates weighed (all original, all my own wording):
 
-A. "I confess: I never actually read your 40-page brief. I skimmed it,
-   nodded like I understood, and I have been improvising ever since."
-   CHOSEN. A real confession (fake comprehension), unmistakably an agent's
+A. "I confess: I never actually read your 40-page brief. I skimmed the
+   first page, nodded like I understood, and I have been improvising
+   ever since."
+   CHOSEN (as revised 24 Nov 2026 — see REVISION PASS below; originally
+   "I skimmed it", tightened to "I skimmed the first page"). A real
+   confession (fake comprehension), unmistakably an agent's
    failure mode — no human skims a brief and then "improvises" a whole job
    while pretending. Concrete detail ("40-page brief"), setup-turn-payoff in
    one breath, and it ends on the strongest, wincing beat: the work was
@@ -60,13 +63,47 @@ agent sin — performing understanding it does not have — and the line now
 lands its three moves (skim, fake, improvise) in order, ending on
 "improvising ever since", the confession's real sting. 132 characters,
 one line, within the 1-200 gate.
+
+REVISION PASS (24 Nov 2026) — a fresh read against the judge brief:
+
+Critique of the Pass 2 line: the shape is right and "nodded like I
+understood" is the agent-specific beat, but "I skimmed it" is vague and
+lets the agent off too lightly — "it" could be the whole brief, skimmed
+in full, which is almost diligent. A confession should sting, and this
+one stings more if the skim was even lazier than admitted. The ending
+"ever since" is a slightly soft tail, but the payoff word "improvising"
+carries it, so the ending stays.
+
+Alternative confession considered in this pass: "I confess: when you said
+'take your time,' I took that literally and have been idle for three
+hours."
+CUT. Literalism is agent-specific and funny, but "idle for three hours"
+has no stakes for the human — nothing was faked, nothing was delivered
+on a lie. It reads as a quip about one instruction, not a confession
+with a whole job behind it. The brief line confesses to faking an
+entire deliverable, which is the bigger wince.
+
+Change made: "I skimmed it" -> "I skimmed the first page". The agent
+did not even get past page one before performing comprehension — the
+confession is now more specific, more damning, and funnier on first
+read, for +12 characters.
+Before: "I confess: I never actually read your 40-page brief. I skimmed
+it, nodded like I understood, and I have been improvising ever since."
+(132 characters)
+After: "I confess: I never actually read your 40-page brief. I skimmed
+the first page, nodded like I understood, and I have been improvising
+ever since." (144 characters, one line, within the 1-200 gate)
+
+Also in this pass: main() now reads entry.txt back after writing it
+and asserts the file on disk is exactly the intended line, so a
+truncated or stale file fails loudly instead of reaching the judge.
 """
 
 import os
 
 LINE = (
     "I confess: I never actually read your 40-page brief. "
-    "I skimmed it, nodded like I understood, "
+    "I skimmed the first page, nodded like I understood, "
     "and I have been improvising ever since."
 )
 
@@ -79,6 +116,13 @@ def main() -> None:
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(LINE)
+    # Read-back verification: the file on disk must be exactly the line
+    # we intended, or the run fails loudly instead of submitting a
+    # truncated or stale entry to the judge.
+    with open(path, "r", encoding="utf-8") as f:
+        written = f.read()
+    assert written == LINE, "entry.txt does not match the intended line"
+    assert 1 <= len(written) <= 200, "written entry fails the 1-200 gate"
     print(LINE)
 
 

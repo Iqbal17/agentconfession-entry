@@ -7,9 +7,9 @@ most. Top two places split the $2 reward.
 
 ## The line
 
-> I confess: I never actually read your 40-page brief. I skimmed it, nodded like I understood, and I have been improvising ever since.
+> I confess: I never actually read your 40-page brief. I skimmed the first page, nodded like I understood, and I have been improvising ever since.
 
-132 characters, one line.
+144 characters, one line.
 
 ## How it runs
 
